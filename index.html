@@ -1,0 +1,85 @@
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+
+<body>
+
+<form class="some-class-form" method="post" action="">
+		<div class="form-content">
+			<p><label for="input01">Name</label><input type="text" id="input01" value=""></p>
+			<p><label for="input02">Password</label><input type="password" id="input02" value=""></p>
+			<p><label for="input03">Email</label><input type="text" id="input03" value=""></p>
+			<p><label for="input04">Details</label><input type="text" id="input04" value=""></p>
+		</div>
+		<aside>
+			<div class="inputs-progress">
+				<span class="start"></span>
+				<span class="finish"></span>
+				<span class="count"></span>
+			</div>
+		</aside>
+	</form>
+
+</body>
+
+
+</html>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+			var all = $('input').length,
+				total = 0;
+			$('.count').text(total+'%');
+			rotateDegree(total);
+			$('input').blur(function() {
+			   	var count = $('input').not(function() {
+			        return !$(this).val();
+			   	}).length;
+			  	rotateDegree(count);
+			});
+			
+			function rotateDegree(count, total) {
+				var total = count * 100 / all,
+					count = 0;
+ 				var degree = total /100 * 360;
+ 				$('.count').text(total+'%');
+ 				if ((degree > 180)) {
+ 					$('.finish').css({
+ 						'background': '#ff8c69',
+ 						'transform': 'rotate(-'+degree+'deg)'
+	 				});
+	 				$('.start').css({
+						'transform': 'rotate(0deg)',
+						'background':'yellowgreen',
+						'background-image':'linear-gradient(to right, transparent 50%, #ff8c69 0)'
+					})
+ 				} else {
+					$('.finish').css({
+						'background': 'yellowgreen',
+						'transform': 'rotate('+degree+'deg)'
+					});
+					$('.start').css({
+						'transform': 'rotate(0deg)',
+						'background':'yellowgreen',
+						'background-image':'linear-gradient(to right, transparent 50%, #ff8c69 0)'
+					})
+				}
+				if (degree === 360) {
+
+					$('.start').css({
+						'transform': 'rotate(180deg)',
+						'background':'#ff8c69'
+					})
+				}
+				console.log(degree);
+			}
+
+		});
+
+</script>
